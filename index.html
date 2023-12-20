@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            background: blue;
+        }
+        table{
+            border: white;
+            margin: auto;
+            margin-top: 120px;
+            border-collapse: collapse;
+            
+        }
+        td{
+            color: aliceblue;
+            width:100px;
+            height:100px;
+            text-align: center;
+            font-size: 35px;
+        }
+    </style>
+</head>
+<body>
+    <div><h1 style="color: aliceblue;">Lets play-</h1></div>
+    <table border="10px solid black" id="myGameBoard">
+        <tr>
+            <td onclick="sendData(0,0)"></td>
+            <td onclick="sendData(0,1)"></td>
+            <td onclick="sendData(0,2)"></td>
+        </tr>
+        <tr>
+            <td onclick="sendData(1,0)"></td>
+            <td onclick="sendData(1,1)"></td>
+            <td onclick="sendData(1,2)"></td>
+        </tr>
+        <tr>
+            <td onclick="sendData(2,0)"></td>
+            <td onclick="sendData(2,1)"></td>
+            <td onclick="sendData(2,2)"></td>
+        </tr>
+    </table>
+    <script>
+        let currentPlayer = 'X'
+let isGameEnded = false;
+const gameBoard = [[null, null, null], [null, null, null], [null, null, null]]
+const sendData = (a, b) => {
+    if(!isGameEnded){
+        gameBoard[a][b] = currentPlayer;
+        document.getElementById('myGameBoard').rows[a].cells[b].innerText = currentPlayer;
+    
+        if(checkWin(currentPlayer)){
+            isGameEnded = true;
+            alert(`${currentPlayer} is winner`);
+        }
+        // else if(!gameBoard.includes(null)){
+        //     alert("Game has drawn")
+        // }
+        
+
+        //game drawn......
+        if(gameBoard[0][0]!=null && gameBoard[0][1]!=null &&gameBoard[0][2]!=null &&gameBoard[1][0]!=null &&
+        gameBoard[1][1]!=null &&gameBoard[1][2]!=null &&gameBoard[2][0]!=null &&gameBoard[2][1]!=null &&
+        gameBoard[2][2]!=null && isGameEnded==false){
+            alert(` Game is Drawn`);
+        }
+    
+        (currentPlayer == 'X')?(currentPlayer = '0'):(currentPlayer = 'X')
+    }
+    
+ 
+    
+
+}
+
+function checkWin(player){
+    for(let i=0;i<3;i++){
+        //check for vertically
+        if(gameBoard[0][i] == player && gameBoard[1][i] == player && gameBoard[2][i] == player){
+            return true;
+        }
+        //check horizontally
+        else if(gameBoard[i][0] == player && gameBoard[i][1] == player && gameBoard[i][2] == player){
+            return true;
+        }
+
+        
+    }
+    //check for diagonally
+    if(gameBoard[0][0] == player && gameBoard[1][1] == player && gameBoard[2][2] == player){
+        return true;
+    }
+    else if(gameBoard[0][2] == player && gameBoard[1][1] == player && gameBoard[2][0] == player){
+        return true;
+    }
+    return false;
+}
+    </script>
+</body>
+</html>
